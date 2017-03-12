@@ -25,7 +25,7 @@ INCLUDE_DIRS =\
   $(CPPUTEST_HOME)/include\
   $(PROJECT_HOME_DIR)/include/\
   
-CPPUTEST_WARNINGFLAGS += -Wall 
+CPPUTEST_WARNINGFLAGS += -Wall -Wreserved-id-macro
 
 CPPFLAGS = -I$(CPPUTEST_HOME)/include
 CXXFLAGS = -include $(CPPUTEST_HOME)/include/CppUTest/MemoryLeakDetectorNewMacros.h
