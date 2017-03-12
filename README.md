@@ -5,6 +5,8 @@ Renderer with global illumination
 
 ### Install
 
+Download latest version of CppUTest (https://github.com/cpputest/cpputest) and follow their Getting Started steps.
+
 ```bash
 git clone https://github.com/RonnieNigash/The-Last-Toy.git
 cd The-Last-Toy
