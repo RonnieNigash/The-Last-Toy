@@ -1,13 +1,5 @@
-CC = gcc
-
-CFLAGS  = -g -O3 -Wall
-
-TARGET = main
-
-all: $(TARGET)
-
-$(TARGET): $(TARGET).c
-	$(CC) $(CFLAGS) -o $(TARGET) $(TARGET).c
+all:
+	make -i -f MakefileCppuTest.mk
 
 clean:
-	$(RM) $(TARGET)
+	make -i -f MakefileCppuTest.mk clean
