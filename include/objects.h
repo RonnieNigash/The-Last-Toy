@@ -14,12 +14,14 @@ typedef struct Sphere {
 	double radius;
 } Sphere;
 
-void initVector( struct Vector *vec, double x, double y, double z);
+void initVector( Vector *vec, double x, double y, double z );
+void initSphere( Sphere *sphere, Vector *position, double radius );
 
 Vector *addVectors( Vector *vec1, Vector *vec2 );
 Vector *subVectors( Vector *vec1, Vector *vec2 );
 Vector *multiplyVectors( Vector *vec1, Vector *vec2 );
 Vector *multiplyVectorScalar( Vector *vec1, double scalar );
+double vectorMagnitude( Vector *vec1 );
 Vector *normalizeVector( Vector *vec1 );
 
 #endif // D_OBJECTS_H

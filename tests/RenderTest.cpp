@@ -16,8 +16,8 @@ TEST_GROUP(ObjectsTestGroup)
 	{
 		vecA = (Vector*)malloc(sizeof(Vector));
 		vecB = (Vector*)malloc(sizeof(Vector));
-		initVector( vecA, 0, 1, 2);
-		initVector( vecB, 0, 1, 2);
+		initVector( vecA, 0, 1, 2 );
+		initVector( vecB, 0, 1, 2 );
 	}
 
 	// run after each test group
@@ -35,7 +35,8 @@ TEST(ObjectsTestGroup, VectorInitTest)
 	DOUBLES_EQUAL(vecA->z, 2, TOL);
 }
 
-TEST(ObjectsTestGroup, VectorAddTest) {
+TEST(ObjectsTestGroup, VectorAddTest)
+{
 	Vector *vecC = addVectors(vecA, vecB);	
 	DOUBLES_EQUAL(vecC->x, 0, TOL);
 	DOUBLES_EQUAL(vecC->y, 2, TOL);
@@ -43,7 +44,8 @@ TEST(ObjectsTestGroup, VectorAddTest) {
 	free(vecC);
 }
 
-TEST(ObjectsTestGroup, VectorSubTest) {
+TEST(ObjectsTestGroup, VectorSubTest)
+{
 	Vector *vecC = subVectors(vecA, vecB);	
 	DOUBLES_EQUAL(vecC->x, 0, TOL);
 	DOUBLES_EQUAL(vecC->y, 0, TOL);
@@ -51,7 +53,8 @@ TEST(ObjectsTestGroup, VectorSubTest) {
 	free(vecC);
 }
 
-TEST(ObjectsTestGroup, VectorMultiplyTest) {
+TEST(ObjectsTestGroup, VectorMultiplyTest)
+{
 	Vector *vecC = multiplyVectors(vecA, vecB);	
 	DOUBLES_EQUAL(vecC->x, 0, TOL);
 	DOUBLES_EQUAL(vecC->y, 1, TOL);
@@ -59,7 +62,8 @@ TEST(ObjectsTestGroup, VectorMultiplyTest) {
 	free(vecC);
 }
 
-TEST(ObjectsTestGroup, VectorMultiplyScalarTest) {
+TEST(ObjectsTestGroup, VectorMultiplyScalarTest)
+{
 	Vector *vecC = multiplyVectorScalar(vecA, 3);	
 	DOUBLES_EQUAL(vecC->x, 0, TOL);
 	DOUBLES_EQUAL(vecC->y, 3, TOL);
@@ -67,10 +71,17 @@ TEST(ObjectsTestGroup, VectorMultiplyScalarTest) {
 	free(vecC);
 }
 
-TEST(ObjectsTestGroup, VectorNormalizeTest) {
+TEST(ObjectsTestGroup, VectorNormalizeTest)
+{
 	Vector *vecC = normalizeVector(vecA);	
 	DOUBLES_EQUAL(vecC->x, 0, TOL);
 	DOUBLES_EQUAL(vecC->y, 0.4472, TOL); // 1/sqrt(5)
 	DOUBLES_EQUAL(vecC->z, 0.8944, TOL); // 2/sqrt(5)
 	free(vecC);
+}
+
+TEST(ObjectsTestGroup, VectorMagnitudeTest)
+{
+	double vecAMag = vectorMagnitude( vecA );
+	DOUBLES_EQUAL( vecAMag, 2.2361, TOL);
 }

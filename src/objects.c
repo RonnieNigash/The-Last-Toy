@@ -3,7 +3,7 @@
 void copyVector( Vector *fromVec, Vector *toVec );
 Vector *setupReturnVec( Vector *fromVec );
 
-void initVector( Vector *vec, double x, double y, double z)
+void initVector( Vector *vec, double x, double y, double z )
 {
 	vec->x = x;
 	vec->y = y;
@@ -64,17 +64,23 @@ Vector *multiplyVectorScalar( Vector *vec1, double scalar )
 	return returnVec;
 }
 
+double vectorMagnitude( Vector *vec1 )
+{
+	double x, y, z;
+	x = vec1->x;
+	y = vec1->y;
+	z = vec1->z;
+	return sqrt(fabs(x*x + y*y + z*z));
+}
+
 Vector *normalizeVector( Vector *vec1 )
 {
 	Vector *returnVec = setupReturnVec(vec1);
 
-	double x, y, z, magnitude;
-	x = returnVec->x;
-	y = returnVec->y;
-	z = returnVec->z;
-	magnitude = sqrt(fabs(x*x + y*y + z*z));
+	double magnitude = vectorMagnitude( returnVec );
 	returnVec->x /= magnitude;
 	returnVec->y /= magnitude;
 	returnVec->z /= magnitude;
 	return returnVec;
 }
+
