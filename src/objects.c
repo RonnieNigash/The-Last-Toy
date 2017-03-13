@@ -15,3 +15,12 @@ Vector *addVectors( Vector *vec1, Vector *vec2 )
 	returnVec->z = vec1->z + vec2->z;
 	return returnVec;
 }
+
+Vector *subVectors( Vector *vec1, Vector *vec2 )
+{
+	Vector *returnVec = (Vector*)malloc(sizeof(Vector));
+	returnVec->x = vec1->x - vec2->x;
+	returnVec->y = vec1->y - vec2->y;
+	returnVec->z = vec1->z - vec2->z;
+	return returnVec;
+}
