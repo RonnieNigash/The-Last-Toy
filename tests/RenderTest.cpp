@@ -53,3 +53,13 @@ TEST(ObjectsTestGroup, VectorSubTest) {
 	DOUBLES_EQUAL(vecC->z, 0, TOL);
 	free(vecC);
 }
+
+TEST(ObjectsTestGroup, VectorMultiplyTest) {
+	initVector(vecA, 0, 1, 2);
+	initVector(vecB, 0, 1, 2);
+	Vector *vecC = multiplyVectors(vecA, vecB);	
+	DOUBLES_EQUAL(vecC->x, 0, TOL);
+	DOUBLES_EQUAL(vecC->y, 1, TOL);
+	DOUBLES_EQUAL(vecC->z, 4, TOL);
+	free(vecC);
+}
