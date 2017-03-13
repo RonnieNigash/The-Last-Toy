@@ -2,7 +2,7 @@
 #include "CppUTest/TestHarness.h"
 
 extern "C" {
-	// put in #includes here
+#include "objects.h"
 }
 
 TEST_GROUP(RenderTest)
@@ -20,4 +20,12 @@ TEST_GROUP(RenderTest)
 
 TEST(RenderTest, FirstTest)
 {
+	Vector *myVec = (Vector*)malloc(sizeof(Vector));
+	myVec->x = 5;
+	myVec->y = 10;
+	myVec->z = 15;
+	LONGS_EQUAL(myVec->x, 5);
+	LONGS_EQUAL(myVec->y, 10);
+	LONGS_EQUAL(myVec->z, 15);
+	free(myVec);
 }
