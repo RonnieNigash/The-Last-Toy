@@ -5,27 +5,41 @@ extern "C" {
 #include "objects.h"
 }
 
-TEST_GROUP(RenderTest)
+#define TOL 0.0001 // Tolerance
+
+TEST_GROUP(ObjectsTestGroup)
 {
-	// run before each test
+	// run before each test group
+	Vector *vecA;
+	Vector *vecB;
 	void setup()
 	{
+		vecA = (Vector*)malloc(sizeof(Vector));
+		vecB = (Vector*)malloc(sizeof(Vector));
 	}
 
-	// run after each test
+	// run after each test group
 	void teardown()
 	{
+		free(vecA);
+		free(vecB);
 	}
 };
 
-TEST(RenderTest, FirstTest)
+TEST(ObjectsTestGroup, VectorInitTest)
 {
-	Vector *myVec = (Vector*)malloc(sizeof(Vector));
-	myVec->x = 5;
-	myVec->y = 10;
-	myVec->z = 15;
-	LONGS_EQUAL(myVec->x, 5);
-	LONGS_EQUAL(myVec->y, 10);
-	LONGS_EQUAL(myVec->z, 15);
-	free(myVec);
+	initVector(vecA, 0, 1, 2);
+	DOUBLES_EQUAL(vecA->x, 0, TOL);
+	DOUBLES_EQUAL(vecA->y, 1, TOL);
+	DOUBLES_EQUAL(vecA->z, 2, TOL);
+}
+
+TEST(ObjectsTestGroup, VectorAddTest) {
+	initVector(vecA, 0, 1, 2);
+	initVector(vecB, 0, 1, 2);
+	Vector *vecC = addVectors(vecA, vecB);	
+	DOUBLES_EQUAL(vecC->x, 0, TOL);
+	DOUBLES_EQUAL(vecC->y, 2, TOL);
+	DOUBLES_EQUAL(vecC->z, 4, TOL);
+	free(vecC);
 }
