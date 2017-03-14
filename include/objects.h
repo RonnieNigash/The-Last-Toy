@@ -25,5 +25,6 @@ double vectorMagnitude( Vector *vec1 );
 Vector *normalizeVector( Vector *vec1 );
 
 Sphere *scaleSphereRadius( Sphere *sphere, double scalar );
+Sphere *moveSpherePosition( Sphere *sphere, Vector *newPosition );
 
 #endif // D_OBJECTS_H

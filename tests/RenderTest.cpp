@@ -104,3 +104,12 @@ TEST(ObjectsTestGroup, SphereScaleTest)
 	DOUBLES_EQUAL(newSphere->radius, 10, TOL);
 	free(newSphere);
 }
+
+TEST(ObjectsTestGroup, SphereMoveTest)
+{
+	Sphere *newSphere = moveSpherePosition(testSphere, vecB);
+	
+	POINTERS_EQUAL(newSphere->position, vecB);
+	DOUBLES_EQUAL(newSphere->radius, 5, TOL);
+	free(newSphere);
+}

@@ -113,3 +113,10 @@ Sphere *scaleSphereRadius( Sphere *sphere, double scalar )
 	return returnSphere;
 }
 
+Sphere *moveSpherePosition( Sphere *sphere, Vector *newPosition )
+{
+	Sphere *returnSphere = setupReturnSphere(sphere);
+
+	returnSphere->position = newPosition;
+	return returnSphere;
+}
