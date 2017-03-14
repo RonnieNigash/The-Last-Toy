@@ -10,6 +10,12 @@ void initVector( Vector *vec, double x, double y, double z )
 	vec->z = z;
 }
 
+void initSphere( Sphere *sphere, Vector *position, double radius )
+{
+	sphere->position = position;
+	sphere->radius = radius;
+}
+
 void copyVector( Vector *fromVec, Vector *toVec )
 {
 	toVec->x = fromVec->x;

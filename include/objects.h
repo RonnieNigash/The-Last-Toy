@@ -10,7 +10,7 @@ typedef struct Vector {
 } Vector;
 
 typedef struct Sphere {
-	Vector position;
+	Vector *position;
 	double radius;
 } Sphere;
 
