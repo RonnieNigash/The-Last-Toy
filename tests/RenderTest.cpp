@@ -20,7 +20,7 @@ TEST_GROUP(ObjectsTestGroup)
 		vecB = (Vector*)malloc(sizeof(Vector));
 		initVector( vecA, 0, 1, 2 );
 		initVector( vecB, 0, 1, 2 );
-		initSphere( testSphere, vecA, vectorMagnitude(vecA) );
+		initSphere( testSphere, vecA, 5 );
 	}
 
 	// run after each test group
@@ -89,8 +89,18 @@ TEST(ObjectsTestGroup, VectorMagnitudeTest)
 	double vecAMag = vectorMagnitude( vecA );
 	DOUBLES_EQUAL( vecAMag, 2.2361, TOL); // 2.2361 = sqrt(5)
 }
+
 TEST(ObjectsTestGroup, SphereInitTest)
 {
 	POINTERS_EQUAL(testSphere->position, vecA);
-	DOUBLES_EQUAL(testSphere->radius, vectorMagnitude(vecA), TOL);
+	DOUBLES_EQUAL(testSphere->radius, 5, TOL);
+}
+
+TEST(ObjectsTestGroup, SphereScaleTest)
+{
+	Sphere *newSphere = scaleSphereRadius(testSphere, 2);
+	
+	POINTERS_EQUAL(newSphere->position, vecA);
+	DOUBLES_EQUAL(newSphere->radius, 10, TOL);
+	free(newSphere);
 }

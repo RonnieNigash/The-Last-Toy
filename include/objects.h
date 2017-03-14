@@ -24,4 +24,6 @@ Vector *multiplyVectorScalar( Vector *vec1, double scalar );
 double vectorMagnitude( Vector *vec1 );
 Vector *normalizeVector( Vector *vec1 );
 
+Sphere *scaleSphereRadius( Sphere *sphere, double scalar );
+
 #endif // D_OBJECTS_H

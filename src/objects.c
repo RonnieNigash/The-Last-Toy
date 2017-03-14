@@ -2,6 +2,8 @@
 
 void copyVector( Vector *fromVec, Vector *toVec );
 Vector *setupReturnVec( Vector *fromVec );
+void copySphere( Sphere *fromSphere, Sphere *toSphere );
+Sphere *setupReturnSphere( Sphere *fromSphere );
 
 void initVector( Vector *vec, double x, double y, double z )
 {
@@ -28,6 +30,19 @@ Vector *setupReturnVec( Vector *fromVec )
 	Vector *returnVec = malloc(sizeof(Vector));
 	copyVector(fromVec, returnVec);
 	return returnVec;
+}
+
+void copySphere( Sphere*fromSphere, Sphere *toSphere )
+{
+	toSphere->position = fromSphere->position;
+	toSphere->radius = fromSphere->radius;
+}
+
+Sphere *setupReturnSphere( Sphere *fromSphere )
+{
+	Sphere *returnSphere = malloc(sizeof(Sphere));
+	copySphere(fromSphere, returnSphere);
+	return returnSphere;
 }
 
 Vector *addVectors( Vector *vec1, Vector *vec2 )
@@ -88,5 +103,13 @@ Vector *normalizeVector( Vector *vec1 )
 	returnVec->y /= magnitude;
 	returnVec->z /= magnitude;
 	return returnVec;
+}
+
+Sphere *scaleSphereRadius( Sphere *sphere, double scalar )
+{
+	Sphere *returnSphere = setupReturnSphere(sphere);
+
+	returnSphere->radius *= scalar;
+	return returnSphere;
 }
 
