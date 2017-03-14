@@ -10,7 +10,7 @@ typedef struct Vector {
 } Vector;
 
 typedef struct Sphere {
-	Vector position;
+	Vector *position;
 	double radius;
 } Sphere;
 
@@ -23,5 +23,8 @@ Vector *multiplyVectors( Vector *vec1, Vector *vec2 );
 Vector *multiplyVectorScalar( Vector *vec1, double scalar );
 double vectorMagnitude( Vector *vec1 );
 Vector *normalizeVector( Vector *vec1 );
+
+Sphere *scaleSphereRadius( Sphere *sphere, double scalar );
+Sphere *moveSpherePosition( Sphere *sphere, Vector *newPosition );
 
 #endif // D_OBJECTS_H
