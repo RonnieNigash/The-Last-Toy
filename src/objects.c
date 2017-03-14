@@ -18,6 +18,12 @@ void initSphere( Sphere *sphere, Vector *position, double radius )
 	sphere->radius = radius;
 }
 
+void initRay( Ray *ray, Vector *origin, Vector* destination )
+{
+	ray->origin = origin;
+	ray->destination = destination;
+}
+
 void copyVector( Vector *fromVec, Vector *toVec )
 {
 	toVec->x = fromVec->x;
