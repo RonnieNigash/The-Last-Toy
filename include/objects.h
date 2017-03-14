@@ -14,8 +14,14 @@ typedef struct Sphere {
 	double radius;
 } Sphere;
 
+typedef struct Ray {
+	Vector *origin;
+	Vector *destination;
+} Ray;
+
 void initVector( Vector *vec, double x, double y, double z );
 void initSphere( Sphere *sphere, Vector *position, double radius );
+void initRay( Ray *ray, Vector *origin, Vector *destination );
 
 Vector *addVectors( Vector *vec1, Vector *vec2 );
 Vector *subVectors( Vector *vec1, Vector *vec2 );

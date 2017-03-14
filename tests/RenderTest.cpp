@@ -13,20 +13,24 @@ TEST_GROUP(ObjectsTestGroup)
 	Sphere *testSphere;
 	Vector *vecA;
 	Vector *vecB;
+	Ray *testRay;
 	void setup()
 	{
 		testSphere = (Sphere*)malloc(sizeof(Sphere));
 		vecA = (Vector*)malloc(sizeof(Vector));
 		vecB = (Vector*)malloc(sizeof(Vector));
+		testRay = (Ray*)malloc(sizeof(Ray));
 		initVector( vecA, 0, 1, 2 );
 		initVector( vecB, 0, 1, 2 );
 		initSphere( testSphere, vecA, 5 );
+		initRay( testRay, vecA, vecB );
 	}
 
 	// run after each test group
 	void teardown()
 	{
 		free(testSphere);
+		free(testRay);
 		free(vecA);
 		free(vecB);
 	}
@@ -112,4 +116,10 @@ TEST(ObjectsTestGroup, SphereMoveTest)
 	POINTERS_EQUAL(newSphere->position, vecB);
 	DOUBLES_EQUAL(newSphere->radius, 5, TOL);
 	free(newSphere);
+}
+
+TEST(ObjectsTestGroup, RayInitTest)
+{
+	POINTERS_EQUAL(testRay->origin, vecA);
+	POINTERS_EQUAL(testRay->destination, vecB);
 }
