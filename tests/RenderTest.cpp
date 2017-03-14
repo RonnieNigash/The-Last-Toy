@@ -10,19 +10,23 @@ extern "C" {
 TEST_GROUP(ObjectsTestGroup)
 {
 	// run before each test group
+	Sphere *testSphere;
 	Vector *vecA;
 	Vector *vecB;
 	void setup()
 	{
+		testSphere = (Sphere*)malloc(sizeof(Sphere));
 		vecA = (Vector*)malloc(sizeof(Vector));
 		vecB = (Vector*)malloc(sizeof(Vector));
 		initVector( vecA, 0, 1, 2 );
 		initVector( vecB, 0, 1, 2 );
+		initSphere( testSphere, vecA, 5 );
 	}
 
 	// run after each test group
 	void teardown()
 	{
+		free(testSphere);
 		free(vecA);
 		free(vecB);
 	}
@@ -83,5 +87,29 @@ TEST(ObjectsTestGroup, VectorNormalizeTest)
 TEST(ObjectsTestGroup, VectorMagnitudeTest)
 {
 	double vecAMag = vectorMagnitude( vecA );
-	DOUBLES_EQUAL( vecAMag, 2.2361, TOL);
+	DOUBLES_EQUAL( vecAMag, 2.2361, TOL); // 2.2361 = sqrt(5)
+}
+
+TEST(ObjectsTestGroup, SphereInitTest)
+{
+	POINTERS_EQUAL(testSphere->position, vecA);
+	DOUBLES_EQUAL(testSphere->radius, 5, TOL);
+}
+
+TEST(ObjectsTestGroup, SphereScaleTest)
+{
+	Sphere *newSphere = scaleSphereRadius(testSphere, 2);
+	
+	POINTERS_EQUAL(newSphere->position, vecA);
+	DOUBLES_EQUAL(newSphere->radius, 10, TOL);
+	free(newSphere);
+}
+
+TEST(ObjectsTestGroup, SphereMoveTest)
+{
+	Sphere *newSphere = moveSpherePosition(testSphere, vecB);
+	
+	POINTERS_EQUAL(newSphere->position, vecB);
+	DOUBLES_EQUAL(newSphere->radius, 5, TOL);
+	free(newSphere);
 }
