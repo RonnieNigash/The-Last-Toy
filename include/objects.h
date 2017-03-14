@@ -33,4 +33,6 @@ Vector *normalizeVector( Vector *vec1 );
 Sphere *scaleSphereRadius( Sphere *sphere, double scalar );
 Sphere *moveSpherePosition( Sphere *sphere, Vector *newPosition );
 
+double rayIntersect( Ray *ray, Sphere *sphere );
+
 #endif // D_OBJECTS_H

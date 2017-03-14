@@ -126,3 +126,36 @@ Sphere *moveSpherePosition( Sphere *sphere, Vector *newPosition )
 	returnSphere->position = newPosition;
 	return returnSphere;
 }
+
+double rayIntersect( Ray *ray, Sphere *sphere ) // returns distance from ray to sphere, returns 0 if ray doesn't hit
+{
+	Vector *newVec = subVectors(sphere->position, ray->origin);
+
+	double bound;
+	double tolerance=0.0001;
+
+	Vector *testVec = multiplyVectors(newVec, ray->destination);
+	free(newVec);
+
+	double mag = vectorMagnitude(testVec);
+	mag *= mag; // get dot product of vector with ray's destination vector
+
+	Vector *test2Vec = multiplyVectors(testVec, testVec);
+	free(testVec);
+
+	double determinant = (mag*mag) - vectorMagnitude(test2Vec) + (sphere->radius * sphere->radius);
+	free(test2Vec);
+
+	// solving: bound^2 * destination^2 + 2* destination of Vec(origin - position) + (origin - position) of Vec(origin - position) - ray ^2 = 0
+	if (determinant < 0 ) {
+		return 0;
+	} else {
+		determinant = sqrt(determinant);
+	}
+
+	if ( ((bound = mag - determinant) > tolerance) || ((bound = mag + determinant) > tolerance) ) {
+		return bound;
+	}  else {
+		return 0;
+	}
+}

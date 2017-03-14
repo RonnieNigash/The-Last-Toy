@@ -21,8 +21,8 @@ TEST_GROUP(ObjectsTestGroup)
 		vecB = (Vector*)malloc(sizeof(Vector));
 		testRay = (Ray*)malloc(sizeof(Ray));
 		initVector( vecA, 0, 1, 2 );
-		initVector( vecB, 0, 1, 2 );
-		initSphere( testSphere, vecA, 5 );
+		initVector( vecB, 0, 2, 1 );
+		initSphere( testSphere, vecA, 1 );
 		initRay( testRay, vecA, vecB );
 	}
 
@@ -47,8 +47,8 @@ TEST(ObjectsTestGroup, VectorAddTest)
 {
 	Vector *vecC = addVectors(vecA, vecB);	
 	DOUBLES_EQUAL(vecC->x, 0, TOL);
-	DOUBLES_EQUAL(vecC->y, 2, TOL);
-	DOUBLES_EQUAL(vecC->z, 4, TOL);
+	DOUBLES_EQUAL(vecC->y, 3, TOL);
+	DOUBLES_EQUAL(vecC->z, 3, TOL);
 	free(vecC);
 }
 
@@ -56,8 +56,8 @@ TEST(ObjectsTestGroup, VectorSubTest)
 {
 	Vector *vecC = subVectors(vecA, vecB);	
 	DOUBLES_EQUAL(vecC->x, 0, TOL);
-	DOUBLES_EQUAL(vecC->y, 0, TOL);
-	DOUBLES_EQUAL(vecC->z, 0, TOL);
+	DOUBLES_EQUAL(vecC->y, -1, TOL);
+	DOUBLES_EQUAL(vecC->z, 1, TOL);
 	free(vecC);
 }
 
@@ -65,8 +65,8 @@ TEST(ObjectsTestGroup, VectorMultiplyTest)
 {
 	Vector *vecC = multiplyVectors(vecA, vecB);	
 	DOUBLES_EQUAL(vecC->x, 0, TOL);
-	DOUBLES_EQUAL(vecC->y, 1, TOL);
-	DOUBLES_EQUAL(vecC->z, 4, TOL);
+	DOUBLES_EQUAL(vecC->y, 2, TOL);
+	DOUBLES_EQUAL(vecC->z, 2, TOL);
 	free(vecC);
 }
 
@@ -97,7 +97,7 @@ TEST(ObjectsTestGroup, VectorMagnitudeTest)
 TEST(ObjectsTestGroup, SphereInitTest)
 {
 	POINTERS_EQUAL(testSphere->position, vecA);
-	DOUBLES_EQUAL(testSphere->radius, 5, TOL);
+	DOUBLES_EQUAL(testSphere->radius, 1, TOL);
 }
 
 TEST(ObjectsTestGroup, SphereScaleTest)
@@ -105,7 +105,7 @@ TEST(ObjectsTestGroup, SphereScaleTest)
 	Sphere *newSphere = scaleSphereRadius(testSphere, 2);
 	
 	POINTERS_EQUAL(newSphere->position, vecA);
-	DOUBLES_EQUAL(newSphere->radius, 10, TOL);
+	DOUBLES_EQUAL(newSphere->radius, 2, TOL);
 	free(newSphere);
 }
 
@@ -114,12 +114,21 @@ TEST(ObjectsTestGroup, SphereMoveTest)
 	Sphere *newSphere = moveSpherePosition(testSphere, vecB);
 	
 	POINTERS_EQUAL(newSphere->position, vecB);
-	DOUBLES_EQUAL(newSphere->radius, 5, TOL);
+	DOUBLES_EQUAL(newSphere->radius, 1, TOL);
 	free(newSphere);
 }
 
 TEST(ObjectsTestGroup, RayInitTest)
 {
+	POINTERS_EQUAL(testRay->origin, vecA);
+	POINTERS_EQUAL(testRay->destination, vecB);
+}
+
+TEST(ObjectsTestGroup, RayIntersectTest)
+{
+	double distance = rayIntersect(testRay, testSphere);
+	
+	CHECK_TRUE(distance > 0 || distance < 0 );
 	POINTERS_EQUAL(testRay->origin, vecA);
 	POINTERS_EQUAL(testRay->destination, vecB);
 }
