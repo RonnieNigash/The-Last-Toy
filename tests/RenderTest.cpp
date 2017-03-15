@@ -14,6 +14,7 @@ TEST_GROUP(ObjectsTestGroup)
 	Vector *vecA;
 	Vector *vecB;
 	Ray *testRay;
+	Sphere arrayOfSpheres[3];
 	void setup()
 	{
 		testSphere = (Sphere*)malloc(sizeof(Sphere));
@@ -24,6 +25,13 @@ TEST_GROUP(ObjectsTestGroup)
 		initVector( vecB, 0, 2, 1 );
 		initSphere( testSphere, vecA, 1 );
 		initRay( testRay, vecA, vecB );
+
+		int i;
+		int numOfSpheres = sizeof(arrayOfSpheres) / sizeof(Sphere);
+		for (i = 0; i < numOfSpheres; i++) {
+			arrayOfSpheres[i].position = vecA;
+			arrayOfSpheres[i].radius = i;
+		}
 	}
 
 	// run after each test group
@@ -131,4 +139,14 @@ TEST(ObjectsTestGroup, RayIntersectTest)
 	CHECK_TRUE(distance > 0 || distance < 0 );
 	POINTERS_EQUAL(testRay->origin, vecA);
 	POINTERS_EQUAL(testRay->destination, vecB);
+}
+
+TEST(ObjectsTestGroup, ArrayOfSpheresTest)
+{
+	int i;
+	int numOfSpheres = sizeof(arrayOfSpheres) / sizeof(Sphere);
+	for (i = 0; i < numOfSpheres; i++) {
+		POINTERS_EQUAL(arrayOfSpheres[i].position, vecA);
+		DOUBLES_EQUAL(arrayOfSpheres[i].radius, (double)i, TOL);
+	}
 }
