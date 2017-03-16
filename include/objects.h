@@ -3,6 +3,8 @@
 
 #include <math.h>
 
+typedef enum Radiance_t { DIFFUSE, SPECULAR, REFRACTIVE } Radiance_t;
+
 typedef struct Vector {
 	double x;
 	double y;
@@ -12,6 +14,7 @@ typedef struct Vector {
 typedef struct Sphere {
 	Vector *position;
 	double radius;
+	Radiance_t radiance;
 } Sphere;
 
 typedef struct Ray {
@@ -19,9 +22,9 @@ typedef struct Ray {
 	Vector *destination;
 } Ray;
 
-void initVector( Vector *vec, double x, double y, double z );
-void initSphere( Sphere *sphere, Vector *position, double radius );
-void initRay( Ray *ray, Vector *origin, Vector *destination );
+Vector *initVector( double x, double y, double z );
+Sphere *initSphere( Vector *position, double radius, Radiance_t radiance );
+Ray *initRay( Vector *origin, Vector *destination );
 
 Vector *addVectors( Vector *vec1, Vector *vec2 );
 Vector *subVectors( Vector *vec1, Vector *vec2 );

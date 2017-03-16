@@ -17,14 +17,10 @@ TEST_GROUP(ObjectsTestGroup)
 	Sphere arrayOfSpheres[3];
 	void setup()
 	{
-		testSphere = (Sphere*)malloc(sizeof(Sphere));
-		vecA = (Vector*)malloc(sizeof(Vector));
-		vecB = (Vector*)malloc(sizeof(Vector));
-		testRay = (Ray*)malloc(sizeof(Ray));
-		initVector( vecA, 0, 1, 2 );
-		initVector( vecB, 0, 2, 1 );
-		initSphere( testSphere, vecA, 1 );
-		initRay( testRay, vecA, vecB );
+		vecA = initVector( 0, 1, 2 );
+		vecB = initVector( 0, 2, 1 );
+		testSphere = initSphere( vecA, 1, REFRACTIVE );
+		testRay = initRay( vecA, vecB );
 
 		int i;
 		int numOfSpheres = sizeof(arrayOfSpheres) / sizeof(Sphere);
@@ -149,4 +145,9 @@ TEST(ObjectsTestGroup, ArrayOfSpheresTest)
 		POINTERS_EQUAL(arrayOfSpheres[i].position, vecA);
 		DOUBLES_EQUAL(arrayOfSpheres[i].radius, (double)i, TOL);
 	}
+}
+
+TEST(ObjectsTestGroup, ObjectIlluminanceTypeTest)
+{
+	BYTES_EQUAL(testSphere->radiance, REFRACTIVE);	
 }
