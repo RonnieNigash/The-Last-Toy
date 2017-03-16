@@ -5,23 +5,30 @@ Vector *setupReturnVec( Vector *fromVec );
 void copySphere( Sphere *fromSphere, Sphere *toSphere );
 Sphere *setupReturnSphere( Sphere *fromSphere );
 
-void initVector( Vector *vec, double x, double y, double z )
+Vector *initVector( double x, double y, double z )
 {
+	Vector *vec = (Vector*)malloc(sizeof(Vector));
 	vec->x = x;
 	vec->y = y;
 	vec->z = z;
+	return vec;
 }
 
-void initSphere( Sphere *sphere, Vector *position, double radius )
+Sphere *initSphere( Vector *position, double radius, Radiance_t radiance )
 {
+	Sphere *sphere = (Sphere*)malloc(sizeof(Sphere));
 	sphere->position = position;
 	sphere->radius = radius;
+	sphere->radiance = radiance;
+	return sphere;
 }
 
-void initRay( Ray *ray, Vector *origin, Vector* destination )
+Ray *initRay( Vector *origin, Vector* destination )
 {
+	Ray *ray = (Ray*)malloc(sizeof(Ray));
 	ray->origin = origin;
 	ray->destination = destination;
+	return ray;
 }
 
 void copyVector( Vector *fromVec, Vector *toVec )
@@ -33,7 +40,7 @@ void copyVector( Vector *fromVec, Vector *toVec )
 
 Vector *setupReturnVec( Vector *fromVec )
 {
-	Vector *returnVec = malloc(sizeof(Vector));
+	Vector *returnVec = (Vector*)malloc(sizeof(Vector));
 	copyVector(fromVec, returnVec);
 	return returnVec;
 }
@@ -42,11 +49,12 @@ void copySphere( Sphere*fromSphere, Sphere *toSphere )
 {
 	toSphere->position = fromSphere->position;
 	toSphere->radius = fromSphere->radius;
+	toSphere->radiance = fromSphere->radiance;
 }
 
 Sphere *setupReturnSphere( Sphere *fromSphere )
 {
-	Sphere *returnSphere = malloc(sizeof(Sphere));
+	Sphere *returnSphere = (Sphere*)malloc(sizeof(Sphere));
 	copySphere(fromSphere, returnSphere);
 	return returnSphere;
 }
