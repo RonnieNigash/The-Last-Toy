@@ -1,11 +1,37 @@
 #include "radiance.h"
 
+bool rayMissObject( Ray *ray, double *distanceToIntersect, int *objectID );
+
+bool rayMissObject( Ray *ray, double *distanceToIntersect, int *objectID )
+{
+	int numSpheres = sizeof(arrayOfSpheres) / sizeof(Sphere);	
+	double intersect = 0;
+	uint32_t infinity = 1e18;
+
+	int id;
+	for (id = numSpheres; id >= 0; id--) {
+		intersect = rayIntersect( ray, arrayOfSpheres[id] );
+		if ( intersect && (intersect < infinity) ) {
+			*distanceToIntersect = intersect;
+			*objectID = id;
+		}
+	}
+
+	return *distanceToIntersect < infinity;
+}
+
+
 Vector *intensity(Ray *ray, uint8_t recursionDdepth, uint8_t randomSeed)
 {
 	// returns vector which estimates the intensity of a ray	
-	double distanceToIntersect;
+	double *distanceToIntersect;
 
-	int objectID = 0;
+	int *objectID = 0;
+
+	if ( rayMissObject(ray, distanceToIntersect, objectID) ) { // if ray and object do not intersect
+		printf ( "distanceToIntersect = %f\n", *distanceToIntersect );
+		return initVector(0,0,0); // return 0 intensity (black)
+	}
 
 	// if ray and object do not intersect
 	// 	return 0 intensity (black)
@@ -19,6 +45,6 @@ Vector *intensity(Ray *ray, uint8_t recursionDdepth, uint8_t randomSeed)
 	// if the ray has been reflected numerous times // use the recursionDepth
 	// 	determine if the intensity(...) equation should be called again
 	// 		// Use random numbers to determine recursion depth
-	
-	return initVector(0, 0, 0); // placeholder for implementation
+
+	return NULL; // placeholder for implementation
 }

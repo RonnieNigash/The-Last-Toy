@@ -16,7 +16,7 @@ TEST_GROUP(RenderTestGroup)
 	void setup()
 	{
 		vecA = initVector( 0, 0, 0 );
-		vecB = initVector( 1, 1, 1 );
+		vecB = initVector( 0, 0, 0 );
 		testRay = initRay( vecA, vecB );
 	}
 
@@ -29,6 +29,12 @@ TEST_GROUP(RenderTestGroup)
 };
 
 TEST(RenderTestGroup, InitTest)
+{
+	Vector *intensityVec = intensity(testRay, 1, 1);
+	POINTERS_EQUAL(intensityVec, 0);
+}
+
+TEST(RenderTestGroup, RayObjectMissTest)
 {
 	Vector *intensityVec = intensity(testRay, 1, 1);
 	DOUBLES_EQUAL(intensityVec->x,0,TOL);
