@@ -86,8 +86,16 @@ Vector *intensity(Ray *ray, uint8_t recursionDepth, uint8_t randomSeed)
 	bool rayIntoObject = vectorMagnitude(dottedVec) > 0; // true if going into, false if going out of object
 	free(dottedVec);
 
+	double notClose = 1.0;
+	double notIntersection = 1.5;
+	double secondIntersection = rayIntoObject ? notClose / notIntersection : notIntersection / notClost;
+	Vector *secondDottedVec  = multiplyVectors(ray->destination, newVecNormalized);
+	double didNotIntersect = vectorMagnitude(secondDottedVec);
+	free(secondDottedVec);
+
 	// if total internal reflection
 	// 	call intensity(...) with total internal reflection equation
+	
 	// if the ray has been reflected numerous times // use the recursionDepth
 	// 	determine if the intensity(...) equation should be called again
 	// 		// Use random numbers to determine recursion depth
