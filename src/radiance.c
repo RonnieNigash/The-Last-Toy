@@ -6,12 +6,14 @@ bool rayMissObject( Ray *ray, double *distanceToIntersect, int *objectID )
 {
 	int numSpheres = sizeof(arrayOfSpheres) / sizeof(Sphere);	
 	double intersect = 0;
-	uint32_t infinity = 1e18;
+	uint32_t infinity = (uint32_t)1e18;
 
 	int id;
 	for (id = numSpheres; id >= 0; id--) {
-		intersect = rayIntersect( ray, arrayOfSpheres[id] );
-		if ( intersect && (intersect < infinity) ) {
+		Sphere *mySphere = arrayOfSpheres[id];
+//		intersect = rayIntersect( ray, arrayOfSpheres[id] );
+		intersect = rayIntersect( ray, mySphere );
+		if ( (int)intersect && (intersect < infinity) ) {
 			*distanceToIntersect = intersect;
 			*objectID = id;
 		}
@@ -21,10 +23,12 @@ bool rayMissObject( Ray *ray, double *distanceToIntersect, int *objectID )
 }
 
 
-Vector *intensity(Ray *ray, uint8_t recursionDdepth, uint8_t randomSeed)
+Vector *intensity(Ray *ray, uint8_t recursionDepth, uint8_t randomSeed)
 {
 	// returns vector which estimates the intensity of a ray	
-	double *distanceToIntersect;
+	double *distanceToIntersect = NULL;
+	recursionDepth += recursionDepth;
+	randomSeed += randomSeed;
 
 	int *objectID = 0;
 
