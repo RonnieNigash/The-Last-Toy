@@ -14,7 +14,7 @@ TEST_GROUP(ObjectsTestGroup)
 	Vector *vecA;
 	Vector *vecB;
 	Ray *testRay;
-	Sphere arrayOfSpheres[3];
+	Sphere *arrayOfSpheres[3];
 	void setup()
 	{
 		vecA = initVector( 0, 1, 2 );
@@ -25,8 +25,8 @@ TEST_GROUP(ObjectsTestGroup)
 		int i;
 		int numOfSpheres = sizeof(arrayOfSpheres) / sizeof(Sphere);
 		for (i = 0; i < numOfSpheres; i++) {
-			arrayOfSpheres[i].position = vecA;
-			arrayOfSpheres[i].radius = i;
+			arrayOfSpheres[i]->position = vecA;
+			arrayOfSpheres[i]->radius = i;
 		}
 	}
 
@@ -142,8 +142,8 @@ TEST(ObjectsTestGroup, ArrayOfSpheresTest)
 	int i;
 	int numOfSpheres = sizeof(arrayOfSpheres) / sizeof(Sphere);
 	for (i = 0; i < numOfSpheres; i++) {
-		POINTERS_EQUAL(arrayOfSpheres[i].position, vecA);
-		DOUBLES_EQUAL(arrayOfSpheres[i].radius, (double)i, TOL);
+		POINTERS_EQUAL(arrayOfSpheres[i]->position, vecA);
+		DOUBLES_EQUAL(arrayOfSpheres[i]->radius, (double)i, TOL);
 	}
 }
 

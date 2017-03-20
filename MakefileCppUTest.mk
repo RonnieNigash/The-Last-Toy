@@ -30,6 +30,6 @@ CPPUTEST_WARNINGFLAGS += -Wall -Wreserved-id-macro
 CPPFLAGS = -I$(CPPUTEST_HOME)/include
 CXXFLAGS = -include $(CPPUTEST_HOME)/include/CppUTest/MemoryLeakDetectorNewMacros.h
 CFLAGS = -include $(CPPUTEST_HOME)/include/CppUTest/MemoryLeakDetectorMallocMacros.h
-LD_LIBRARIES = -L$(CPPUTEST_HOME)/cpputest_build/lib -lCppUTest -lCppUTestExt
+LDFLAGS = -L$(CPPUTEST_HOME)/cpputest_build/lib -lCppUTest -lCppUTestExt -lstdc++
 
 include $(CPPUTEST_HOME)/build/MakefileWorker.mk
