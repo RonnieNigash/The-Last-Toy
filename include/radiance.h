@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include "objects.h"
 
 Vector *intensity(Ray *ray, uint8_t recursionDepth, uint8_t randomSeed);
