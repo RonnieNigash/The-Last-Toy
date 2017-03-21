@@ -2,6 +2,7 @@
 #include "CppUTest/TestHarness.h"
 
 extern "C" {
+#include "objects.h"
 #include "radiance.h"
 }
 
