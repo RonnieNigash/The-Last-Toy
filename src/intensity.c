@@ -1,8 +1,9 @@
-#include "radiance.h"
+#include "objects.h"
+#include "intensity.h"
 
-bool rayMissObject( Ray *ray, double *distanceToIntersect, int *objectID );
+bool rayMissObject( Sphere *arrayOfSpheres[], Ray *ray, double *distanceToIntersect, int *objectID );
 
-bool rayMissObject( Ray *ray, double *distanceToIntersect, int *objectID )
+bool rayMissObject( Sphere *arrayOfSpheres[], Ray *ray, double *distanceToIntersect, int *objectID )
 {
 	int numSpheres = sizeof(arrayOfSpheres) / sizeof(Sphere);	
 	double intersect = 0;
@@ -21,7 +22,7 @@ bool rayMissObject( Ray *ray, double *distanceToIntersect, int *objectID )
 }
 
 
-Vector *intensity(Ray *ray, uint8_t recursionDepth, uint8_t randomSeed)
+Vector *intensity(Sphere *arrayOfSpheres[], Ray *ray, uint8_t recursionDepth, uint8_t randomSeed)
 {
 	// returns vector which estimates the intensity of a ray	
 	double *distanceToIntersect = NULL;
@@ -30,7 +31,7 @@ Vector *intensity(Ray *ray, uint8_t recursionDepth, uint8_t randomSeed)
 
 	int *objectID = 0;
 
-	if ( rayMissObject(ray, distanceToIntersect, objectID) ) { // if ray and object do not intersect
+	if ( rayMissObject(arrayOfSpheres, ray, distanceToIntersect, objectID) ) { // if ray and object do not intersect
 		printf ( "distanceToIntersect = %f\n", *distanceToIntersect );
 		return initVector(0,0,0); // return 0 intensity (black)
 	}
@@ -39,7 +40,7 @@ Vector *intensity(Ray *ray, uint8_t recursionDepth, uint8_t randomSeed)
 
 	Vector *scaledDestinationVec = multiplyVectorScalar(ray->destination, *distanceToIntersect);
 
-	Vector *vecAdded = addVectors(ray->origin, scaledDesinationVec);
+	Vector *vecAdded = addVectors(ray->origin, scaledDestinationVec);
 
 	Vector *vecSubtracted = subVectors(vecAdded, object->position);
 	free(vecAdded);
@@ -58,15 +59,15 @@ Vector *intensity(Ray *ray, uint8_t recursionDepth, uint8_t randomSeed)
 	}
 	free(direction);
 
-	if ( ++depth > 5 ) { 
+	if ( ++recursionDepth > 5 ) { 
 	// if max reflectance reached, return max intensity (white)
 		return initVector(255,255,255); // return 1 intensity (white)
 	}
 
-	if ( object->Radiance_t == DIFFUSE ) {
+	if ( object->radiance == DIFFUSE ) {
 		// if object is diffusive
 		// handle diffusive with Ray Tracing Algorithm
-	} else if ( object->Radiance_t == SPECULAR ) {
+	} else if ( object->radiance == SPECULAR ) {
 		// else if object is specular
 		// handle specular
 	 	// call intensity(...) with specular equation
@@ -76,7 +77,7 @@ Vector *intensity(Ray *ray, uint8_t recursionDepth, uint8_t randomSeed)
 	Vector *firstVec = multiplyVectors(scaledVec, ray->destination);
 	Vector *secondVec = multiplyVectors(vecNormalized, firstVec);
 	Vector *scaledNewDestinationRay = subVectors(ray->destination, secondVec);	
-	Ray *refractedRay = initRay( scaledDestinationRay, scaledNewDestinationRay ); // origin is the destination of incident
+	Ray *refractedRay = initRay( scaledDestinationVec, scaledNewDestinationRay ); // origin is the destination of incident
 	free(scaledVec);
 	free(firstVec);
 	free(secondVec);
@@ -88,7 +89,7 @@ Vector *intensity(Ray *ray, uint8_t recursionDepth, uint8_t randomSeed)
 
 	double notClose = 1.0;
 	double notIntersection = 1.5;
-	double secondIntersection = rayIntoObject ? notClose / notIntersection : notIntersection / notClost;
+	double secondIntersection = rayIntoObject ? notClose / notIntersection : notIntersection / notClose;
 	Vector *secondDottedVec  = multiplyVectors(ray->destination, newVecNormalized);
 	double didNotIntersect = vectorMagnitude(secondDottedVec);
 	free(secondDottedVec);

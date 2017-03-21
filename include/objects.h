@@ -22,8 +22,6 @@ typedef struct Ray {
 	Vector *destination;
 } Ray;
 
-extern Sphere *arrayOfSpheres[3];
-
 Vector *initVector( double x, double y, double z );
 Sphere *initSphere( Vector *position, double radius, Radiance_t radiance );
 Ray *initRay( Vector *origin, Vector *destination );
