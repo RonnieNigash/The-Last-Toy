@@ -5,6 +5,6 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-Vector *intensity(Ray *ray, uint8_t recursionDepth, uint8_t randomSeed);
+Vector *intensity(Sphere *arrayOfSpheres[], Ray *ray, uint8_t recursionDepth, uint8_t randomSeed);
 
 #endif // D_Intensity_H
