@@ -1,5 +1,5 @@
 #include "objects.h"
-#include "radiance.h"
+#include "intensity.h"
 
 bool rayMissObject( Ray *ray, double *distanceToIntersect, int *objectID );
 

@@ -3,7 +3,7 @@
 
 extern "C" {
 #include "objects.h"
-#include "radiance.h"
+#include "intensity.h"
 }
 
 #define TOL 0.0001 // Tolerance
