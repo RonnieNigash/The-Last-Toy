@@ -14,11 +14,19 @@ TEST_GROUP(RenderTestGroup)
 	Ray *testRay;
 	Vector *vecA;
 	Vector *vecB;
+	Sphere *arrayOfSpheres[3];
 	void setup()
 	{
 		vecA = initVector( 0, 0, 0 );
 		vecB = initVector( 0, 0, 0 );
 		testRay = initRay( vecA, vecB );
+
+		int i;
+		int numOfSpheres = sizeof(arrayOfSpheres) / sizeof(Sphere);
+		for (i = 0; i < numOfSpheres; i++) {
+			arrayOfSpheres[i]->position = vecA;
+			arrayOfSpheres[i]->radius = i;
+		}
 	}
 
 	void teardown()
@@ -31,13 +39,14 @@ TEST_GROUP(RenderTestGroup)
 
 TEST(RenderTestGroup, InitTest)
 {
-	Vector *intensityVec = intensity(testRay, 1, 1);
+	Vector *intensityVec = intensity(arrayOfSpheres, testRay, 1, 1);
 	POINTERS_EQUAL(intensityVec, 0);
+	free(intensityVec);
 }
 
 TEST(RenderTestGroup, RayObjectMissTest)
 {
-	Vector *intensityVec = intensity(testRay, 1, 1);
+	Vector *intensityVec = intensity(arrayOfSpheres, testRay, 1, 1);
 	DOUBLES_EQUAL(intensityVec->x,0,TOL);
 	DOUBLES_EQUAL(intensityVec->y,0,TOL);
 	DOUBLES_EQUAL(intensityVec->z,0,TOL);

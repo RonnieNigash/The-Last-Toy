@@ -1,9 +1,9 @@
 #include "objects.h"
 #include "intensity.h"
 
-bool rayMissObject( Ray *ray, double *distanceToIntersect, int *objectID );
+bool rayMissObject( Sphere *arrayOfSpheres[], Ray *ray, double *distanceToIntersect, int *objectID );
 
-bool rayMissObject( Ray *ray, double *distanceToIntersect, int *objectID )
+bool rayMissObject( Sphere *arrayOfSpheres[], Ray *ray, double *distanceToIntersect, int *objectID )
 {
 	int numSpheres = sizeof(arrayOfSpheres) / sizeof(Sphere);	
 	double intersect = 0;
@@ -22,7 +22,7 @@ bool rayMissObject( Ray *ray, double *distanceToIntersect, int *objectID )
 }
 
 
-Vector *intensity(Ray *ray, uint8_t recursionDepth, uint8_t randomSeed)
+Vector *intensity(Sphere *arrayOfSpheres[], Ray *ray, uint8_t recursionDepth, uint8_t randomSeed)
 {
 	// returns vector which estimates the intensity of a ray	
 	double *distanceToIntersect = NULL;
@@ -31,7 +31,7 @@ Vector *intensity(Ray *ray, uint8_t recursionDepth, uint8_t randomSeed)
 
 	int *objectID = 0;
 
-	if ( rayMissObject(ray, distanceToIntersect, objectID) ) { // if ray and object do not intersect
+	if ( rayMissObject(arrayOfSpheres, ray, distanceToIntersect, objectID) ) { // if ray and object do not intersect
 		printf ( "distanceToIntersect = %f\n", *distanceToIntersect );
 		return initVector(0,0,0); // return 0 intensity (black)
 	}
