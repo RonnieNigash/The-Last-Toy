@@ -2,7 +2,19 @@
 
 
 int main( int argc, char *argv[] ) {
-	// draw scene
-	// write to file
+	// place camera
+	
+	// initialize array for the image
+	
+	// for each pixel
+	// 	split into 2x2 sub pixels
+	// 	average the intensity samples
+	// 	set values to the image array
+	
+	// write the image file
+
+
+
+
 	exit(0);
 }
