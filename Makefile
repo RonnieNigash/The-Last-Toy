@@ -1,5 +1,5 @@
 all:
-	make -i -f MakefileCppuTest.mk
+	make -i -f MakefileCppUTest.mk
 
 clean:
-	make -i -f MakefileCppuTest.mk clean
+	make -i -f MakefileCppUTest.mk clean
