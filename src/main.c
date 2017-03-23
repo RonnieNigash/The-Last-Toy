@@ -11,13 +11,16 @@ int main( int argc, char *argv[] ) {
 	Ray *camera = initRay(position, direction);
 
 	// initialize array for the image
-	int width = 1680, height = 1050;
+	const int width = 1680, height = 1050;
 
 	int samples = 8; 
 
 	if (argc == 2) {
 		samples = atoi(argv[1])/4;
 	}	
+
+	const double field_of_view = 0.5;
+	Vector *camera_x = initVector((width/height)*field_of_view, 0, 0);
 
 
 	// for each pixel
@@ -26,8 +29,6 @@ int main( int argc, char *argv[] ) {
 	// 	set values to the image array
 	
 	// write the image file
-
-
 
 
 	exit(0);
