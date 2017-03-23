@@ -97,6 +97,7 @@ Vector *intensity(Sphere *arrayOfSpheres[], Ray *ray, uint8_t recursionDepth, ui
 	// if total internal reflection
 	// 	call intensity(...) with total internal reflection equation
 	
+
 	// if the ray has been reflected numerous times // use the recursionDepth
 	// 	determine if the intensity(...) equation should be called again
 	// 		// Use random numbers to determine recursion depth
