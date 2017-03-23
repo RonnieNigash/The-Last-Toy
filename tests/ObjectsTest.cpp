@@ -25,14 +25,21 @@ TEST_GROUP(ObjectsTestGroup)
 		int i;
 		int numOfSpheres = sizeof(arrayOfSpheres) / sizeof(Sphere);
 		for (i = 0; i < numOfSpheres; i++) {
+			arrayOfSpheres[i] = (Sphere*)malloc(sizeof(Sphere));
 			arrayOfSpheres[i]->position = vecA;
-			arrayOfSpheres[i]->radius = i;
+			arrayOfSpheres[i]->radius = (double)i;
+			arrayOfSpheres[i]->radiance = DIFFUSE;
 		}
 	}
 
 	// run after each test group
 	void teardown()
 	{
+		int i;
+		int numOfSpheres = sizeof(arrayOfSpheres) / sizeof(Sphere);
+		for (i = 0; i < numOfSpheres; i++) {
+			free(arrayOfSpheres[i]);
+		}
 		free(testSphere);
 		free(testRay);
 		free(vecA);

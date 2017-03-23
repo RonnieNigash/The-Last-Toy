@@ -4,6 +4,7 @@
 extern "C" {
 #include "objects.h"
 #include "intensity.h"
+#include <string.h>
 }
 
 #define TOL 0.0001 // Tolerance
@@ -21,16 +22,25 @@ TEST_GROUP(RenderTestGroup)
 		vecB = initVector( 0, 0, 0 );
 		testRay = initRay( vecA, vecB );
 
+		
+
 		int i;
 		int numOfSpheres = sizeof(arrayOfSpheres) / sizeof(Sphere);
 		for (i = 0; i < numOfSpheres; i++) {
+			arrayOfSpheres[i] = (Sphere*)malloc(sizeof(Sphere));
 			arrayOfSpheres[i]->position = vecA;
-			arrayOfSpheres[i]->radius = i;
+			arrayOfSpheres[i]->radius = (double)i;
+			arrayOfSpheres[i]->radiance = DIFFUSE;
 		}
 	}
 
 	void teardown()
 	{
+		int i;
+		int numOfSpheres = sizeof(arrayOfSpheres) / sizeof(Sphere);
+		for (i = 0; i < numOfSpheres; i++) {
+			free(arrayOfSpheres[i]);
+		}
 		free(vecA);
 		free(vecB);
 		free(testRay);
