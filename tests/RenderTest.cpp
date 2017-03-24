@@ -18,14 +18,14 @@ TEST_GROUP(RenderTestGroup)
 	Sphere *arrayOfSpheres[3];
 	void setup()
 	{
-		vecA = initVector( 0, 0, 0 );
-		vecB = initVector( 0, 0, 0 );
+		vecA = initVector( 1, 1, 1 );
+		vecB = initVector( 2, 2, 2 );
 		testRay = initRay( vecA, vecB );
 
 		
 
 		int i;
-		int numOfSpheres = sizeof(arrayOfSpheres) / sizeof(Sphere);
+		int numOfSpheres = sizeof(arrayOfSpheres) / sizeof(arrayOfSpheres[0]);
 		for (i = 0; i < numOfSpheres; i++) {
 			arrayOfSpheres[i] = (Sphere*)malloc(sizeof(Sphere));
 			arrayOfSpheres[i]->position = vecA;
@@ -37,7 +37,7 @@ TEST_GROUP(RenderTestGroup)
 	void teardown()
 	{
 		int i;
-		int numOfSpheres = sizeof(arrayOfSpheres) / sizeof(Sphere);
+		int numOfSpheres = sizeof(arrayOfSpheres) / sizeof(arrayOfSpheres[0]);
 		for (i = 0; i < numOfSpheres; i++) {
 			free(arrayOfSpheres[i]);
 		}

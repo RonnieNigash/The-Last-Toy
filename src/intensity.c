@@ -5,7 +5,7 @@ bool rayMissObject( Sphere *arrayOfSpheres[], Ray *ray, double *distanceToInters
 
 bool rayMissObject( Sphere *arrayOfSpheres[], Ray *ray, double *distanceToIntersect, int *objectID )
 {
-	int numSpheres = sizeof(arrayOfSpheres) / sizeof(Sphere);	
+	int numSpheres = sizeof(arrayOfSpheres) / sizeof(arrayOfSpheres[0]);	
 	double intersect = 0;
 	uint32_t infinity = (uint32_t)1e18;
 
@@ -25,18 +25,18 @@ bool rayMissObject( Sphere *arrayOfSpheres[], Ray *ray, double *distanceToInters
 Vector *intensity(Sphere *arrayOfSpheres[], Ray *ray, uint8_t recursionDepth, uint8_t randomSeed)
 {
 	// returns vector which estimates the intensity of a ray	
-	double distanceToIntersect;
+	double distanceToIntersect = 0;
 	recursionDepth += recursionDepth;
 	randomSeed += randomSeed;
 
-	int *objectID = 0;
+	int objectID = 0;
 
-	if ( rayMissObject(arrayOfSpheres, ray, &distanceToIntersect, objectID) ) { // if ray and object do not intersect
+	if ( rayMissObject(arrayOfSpheres, ray, &distanceToIntersect, &objectID) ) { // if ray and object do not intersect
 		printf ( "distanceToIntersect = %f\n", distanceToIntersect );
 		return initVector(0,0,0); // return 0 intensity (black)
 	}
 
-	Sphere *object = arrayOfSpheres[*objectID];
+	Sphere *object = arrayOfSpheres[objectID];
 
 	Vector *scaledDestinationVec = multiplyVectorScalar(ray->destination, distanceToIntersect);
 
